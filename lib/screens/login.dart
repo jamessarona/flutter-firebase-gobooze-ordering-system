@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:liquor_ordering_system/screens/home.dart';
 import 'package:liquor_ordering_system/screens/signup.dart';
 import 'package:liquor_ordering_system/shared/constants.dart';
-import 'package:liquor_ordering_system/shared/custom_appbar.dart';
 import 'package:liquor_ordering_system/shared/custom_button.dart';
 import 'package:liquor_ordering_system/shared/custom_container.dart';
 import 'package:liquor_ordering_system/shared/custom_logo_slogan.dart';
-import 'package:liquor_ordering_system/shared/custom_textformField.dart';
+import 'package:liquor_ordering_system/shared/custom_textformfield.dart';
 import 'package:liquor_ordering_system/shared/scroll_behavior.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -30,7 +30,6 @@ class _LoginScreenState extends State<LoginScreen> {
     screenSize = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        appBar: const TransparentAppbar(hasLeadingIcon: false),
         body: Container(
           width: screenSize.width,
           color: Colors.white,
@@ -147,21 +146,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       right: screenSize.width / 3,
                     ),
                     child: CustomRaisedButton(
-                        elavation: 5,
-                        color: customColor,
-                        radius: 20,
-                        onPressed: () {
-                          setState(() {
-                            _loginFormKey.currentState?.validate();
-                          });
-                        },
-                        isLoading: false,
-                        text: const Text(
-                          'Login',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        )),
+                      elavation: 5,
+                      color: customColor,
+                      radius: 20,
+                      onPressed: () {
+                        setState(() {
+                          if (_loginFormKey.currentState!.validate()) {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const HomeScreen(),
+                              ),
+                            );
+                          }
+                        });
+                      },
+                      isLoading: false,
+                      text: const Text(
+                        'Sign in',
+                      ),
+                    ),
                   ),
                   const Text(
                     '--------------- Or sign in with ---------------',
@@ -193,30 +196,33 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Dont have an account? ',
-                      ),
-                      Material(
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const SignupScreen(),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Dont have an account? ',
+                        ),
+                        Material(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const SignupScreen(),
+                                ),
+                              );
+                            },
+                            child: const Text(
+                              'Sign up here',
+                              style: TextStyle(
+                                color: Colors.blue,
                               ),
-                            );
-                          },
-                          child: const Text(
-                            'Sign up here',
-                            style: TextStyle(
-                              color: Colors.blue,
                             ),
                           ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),

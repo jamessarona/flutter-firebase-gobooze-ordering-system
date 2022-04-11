@@ -17,7 +17,7 @@ class LogoAndSlogan extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: const EdgeInsets.only(top: 30),
+          margin: const EdgeInsets.only(top: 60),
           height: 100,
           child: Hero(
             tag: 'logo',
